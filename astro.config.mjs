@@ -4,7 +4,8 @@ import sitemap from '@astrojs/sitemap';
 
 // Camping Lido Valderice — sito statico, zero JS client, i18n con prefisso per tutte le lingue.
 export default defineConfig({
-  site: 'https://campinglidovalderice.it',
+  site: 'https://annamariagan.github.io',
+  base: '/clv-staging-preview/',
   output: 'static',
   trailingSlash: 'ignore',
   i18n: {
@@ -19,7 +20,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       // "/" è solo un redirect alla lingua predefinita: non va indicizzato.
-      filter: (page) => page !== 'https://campinglidovalderice.it/',
+      filter: (page) => page !== 'https://annamariagan.github.io/clv-staging-preview/',
       i18n: {
         defaultLocale: 'it',
         locales: { it: 'it-IT', en: 'en', de: 'de-DE', fr: 'fr-FR' },

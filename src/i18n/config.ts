@@ -48,15 +48,25 @@ export const routes = {
 
 export type RouteKey = keyof typeof routes;
 
+/** Prefisso di deployment: vuoto in produzione, '/clv-staging-preview' in staging. */
+const BASE = import.meta.env.BASE_URL.replace(/\/+$/, '');
+
+/** Antepone la base di deployment a un percorso root-relative. */
+export function withBase(path: string): string {
+  return `${BASE}${path}`;
+}
+
 /** Percorso localizzato: /<lang>/<route>/ (la home è /<lang>/) */
 export function localizedPath(lang: Locale, route: RouteKey = 'home'): string {
   const slug = routes[route];
-  return slug ? `/${lang}/${slug}/` : `/${lang}/`;
+  return withBase(slug ? `/${lang}/${slug}/` : `/${lang}/`);
 }
 
 /** Date le alternatives di una pagina, restituisce l'URL nella lingua richiesta.
- *  Le pagine condividono lo slug tra lingue, quindi basta sostituire il prefisso. */
+ *  Le pagine condividono lo slug tra lingue, quindi basta sostituire il prefisso.
+ *  Il pathname ricevuto può includere la base: viene rimossa prima dello switch. */
 export function switchLang(pathname: string, target: Locale): string {
-  const rest = pathname.replace(/^\/[a-z]{2}(?=\/|$)/, '');
-  return `/${target}${rest || '/'}`;
+  const withoutBase = BASE && pathname.startsWith(BASE) ? pathname.slice(BASE.length) : pathname;
+  const rest = withoutBase.replace(/^\/[a-z]{2}(?=\/|$)/, '');
+  return withBase(`/${target}${rest || '/'}`);
 }

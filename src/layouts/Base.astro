@@ -8,6 +8,7 @@ import {
   locales,
   localizedPath,
   switchLang,
+  withBase,
   type Locale,
   type RouteKey,
 } from '../i18n/config';
@@ -81,8 +82,8 @@ const jsonLd = {
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" href="/favicon.ico" sizes="48x48" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" href={withBase('/favicon.ico')} sizes="48x48" />
+    <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
     {alternates.map((a) => <link rel="alternate" hreflang={localeHtmlLang[a.locale]} href={a.href} />)}
     <link rel="alternate" hreflang="x-default" href={xDefault} />
 

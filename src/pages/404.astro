@@ -1,5 +1,5 @@
 ---
-import { localizedPath, locales, localeNames } from '../i18n/config';
+import { localizedPath, locales, localeNames, withBase } from '../i18n/config';
 import { ui } from '../i18n/ui';
 import { Image } from 'astro:assets';
 import egadi from '../assets/egadi.webp';
@@ -15,7 +15,7 @@ const u = ui[lang];
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{u.notFound.title} | {u.meta.siteName}</title>
     <meta name="robots" content="noindex" />
-    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href={withBase('/favicon.ico')} sizes="48x48" />
     <style is:inline>
       body {
         margin: 0;
